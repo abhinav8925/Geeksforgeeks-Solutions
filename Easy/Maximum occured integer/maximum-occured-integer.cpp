@@ -17,24 +17,26 @@ class Solution{
     
         // Your code here
         
-       int arr[maxx];
-        for(int i=0;i<=maxx;i++){
-            arr[i]=0;
-        }
-        for(int i=0;i<n;i++){
-            for(int j=L[i];j<=R[i];j++){
-                    arr[j]++;
-            }
-        }
-        int max=1,res=0;
-        for(int i=0;i<=maxx;i++){
-            if(arr[i]>max){
-                max=arr[i];
-                res=i;
-            }
-        }
-        return res;
+        vector<int> pref(maxx+2,0);
         
+        for(int i=0;i<n;i++){
+            pref[L[i]]++;
+            pref[R[i]+1]-=1;
+        }
+        
+        
+        int res=0;
+        
+        for(int i=1;i<maxx+2;i++){
+            pref[i]+=pref[i-1];
+            
+             
+            
+            if(pref[i]>pref[res])
+                res=i;
+        }
+        
+        return res;
         
     }
 };
