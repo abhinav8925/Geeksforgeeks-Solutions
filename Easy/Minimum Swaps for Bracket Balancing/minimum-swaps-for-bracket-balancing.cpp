@@ -10,20 +10,24 @@ public:
         
         int n=s.size();
         
-        int cnt=0,ans=0;
+        int cnto=0,cntc=0,ans=0;
         
         for(int i=0;i<n;i++){
-            if(s[i]=='[')
-                cnt++;
+            if(s[i]=='['){
+    
+                if(cntc>cnto)
+                    ans+=(cntc-cnto);
+                
+                cnto++;
+            }
+                
             else if(s[i]==']'){
-                cnt--;
-                if(cnt<0)
-                    ans-=cnt;
+                cntc++;
                 
             }
         }
         
-        return abs(ans);
+        return ans;
     }
 };
 
