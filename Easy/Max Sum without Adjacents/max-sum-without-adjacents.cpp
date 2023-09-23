@@ -32,8 +32,18 @@ public:
 	    
 	    vector<int> dp(n,-1);
 	    
-	    return f(n-1,arr,dp);
-	    
+	   // return f(n-1,arr,dp);
+
+        dp[0]=arr[0];
+        for(int i=1;i<n;i++){
+            int t = arr[i];
+            if(i>1)
+                t+=dp[i-2];
+            
+            int nt = 0+dp[i-1];
+            dp[i] = max(t,nt);
+        }
+        return dp[n-1];
 
 	    
 	}
