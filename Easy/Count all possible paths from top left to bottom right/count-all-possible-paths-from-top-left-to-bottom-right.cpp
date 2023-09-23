@@ -15,7 +15,7 @@ class Solution {
     ll count(int row,int col,int m,int n,vector<vector<ll>> &dp){
         
         
-        if(row == m-1  && col==n-1)
+        if(row == m  && col==n)
             return 1;
             
         if(row>m || col>n)
@@ -27,9 +27,9 @@ class Solution {
             return dp[row][col];
         
         
-        dp[row][col] =  (count(row+1,col,m,n,dp)%mod + count (row,col+1,m,n,dp)%mod)%mod;
+        return dp[row][col] =  (count(row+1,col,m,n,dp)%mod + count (row,col+1,m,n,dp)%mod)%mod;
         
-        return dp[row][col];
+        
             
     
         
@@ -40,13 +40,28 @@ class Solution {
         
         // code here
         
-        vector<vector<ll>> dp(m+1,vector<ll> (n+1,-1));
+        vector<vector<ll>> dp(m+1,vector<ll> (n+1,0));
         
         int row=0,col=0;
         
         
-        return count (0,0,m,n,dp);
+        // return count (0,0,m-1,n-1,dp);
+
+
+        dp[0][0]=1;
         
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                
+                if(i>0 && j>0)
+                    dp[i][j] = ((dp[i-1][j])%mod + (dp[i][j-1])%mod)%mod;
+                else
+                    dp[i][j]=1;
+                    
+            }
+        }
+        
+        return dp[m-1][n-1];
         
         
     }
