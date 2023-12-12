@@ -7,30 +7,61 @@ using namespace std;
 // } Driver Code Ends
 //User function template for C++
 
-
-
 class Solution 
 {
     public:
     //Function to find if there is a celebrity in the party or not.
-    int celebrity(vector<vector<int>> &a, int n) 
+    int celebrity(vector<vector<int>> &M, int n) 
     {
         // code here 
-        int in[n]={0},out[n]={0};
+        // int in[n]={0},out[n]={0};
+        // for(int i=0;i<n;i++){
+        //     for(int j=0;j<n;j++){
+        //         if(a[i][j]==1){
+        //             in[j]++;
+        //             out[i]++;
+        //         }
+        //     }
+        // }
+        
+        // for(int i=0;i<n;i++){
+        //     if(in[i]==n-1 && out[i]==0)
+        //         return i;
+        // }
+        // return -1;
+        
+         stack<int> s;
         for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                if(a[i][j]==1){
-                    in[j]++;
-                    out[i]++;
-                }
+            s.push(i);
+        }
+        
+        while(s.size()!=1){
+            int a = s.top(); s.pop();
+            int b = s.top(); s.pop();
+            if(M[a][b]==1){ 
+                s.push(b);
+            }else{ 
+                s.push(a);
             }
         }
         
+        
+        int c = s.top(); s.pop();
+        int ans = c;
         for(int i=0;i<n;i++){
-            if(in[i]==n-1 && out[i]==0)
-                return i;
+            if(M[c][i]==1){
+                ans = -1;
+            }
         }
-        return -1;
+        
+       
+        for(int i=0;i<n;i++){
+            if(i!=c && M[i][c]==0){
+                ans = -1;
+            }
+        }
+        
+        return ans;
     }
 };
 
